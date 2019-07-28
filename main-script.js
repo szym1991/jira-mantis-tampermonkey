@@ -4,10 +4,10 @@ function initializeClient(address, username, password) {
     for(var j=0; j < mantisNumbers.length; j++) {
         var number = mantisNumbers[j].match(/\d+/)[0];
         if (number !== undefined && !isNaN(number)) {
-            client = new MantisClient(address, username, password, number);
-            break;
+            return new MantisClient(address, username, password, number);
         }
     }
+    return null;
 }
 
 function addListenerToEdit(fieldId) {
