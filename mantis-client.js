@@ -1,12 +1,13 @@
 class MantisClient {
-    constructor(address, username, password) {
+    constructor(address, username, password, taskId) {
         this.address = address;
         this.username = username;
         this.password = password;
+        this.taskId = taskId;
     }
 
-	getTask(taskId) {
-        var request = this.getTaskRequest(taskId);
+	getTask() {
+        var request = this.getTaskRequest();
         GM_xmlhttpRequest({
             method: "POST",
             url: this.address,
@@ -40,7 +41,7 @@ class MantisClient {
             onload: function(response) {
                 var mantisDiv = document.getElementById("mantis-details-root");
                 mantisDiv.parentNode.removeChild(mantisDiv);
-                client.getTask(editTask.taskId);
+                client.getTask();
             }
         });
     }
@@ -50,7 +51,7 @@ class MantisClient {
         "<password xsi:type=\"xsd:string\">" + this.password + "</password>\n";
     }
 
-    getTaskRequest(taskId) {
+    getTaskRequest() {
         return "<soapenv:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
         " xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"\n" +
         " xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\n" +
@@ -59,7 +60,7 @@ class MantisClient {
         "   <soapenv:Body>\n" +
         "      <man:mc_issue_get soapenv:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">\n" +
                   this.getCredentialsInXml() +
-        "         <issue_id xsi:type=\"xsd:integer\">" + taskId + "</issue_id>\n" +
+        "         <issue_id xsi:type=\"xsd:integer\">" + this.taskId + "</issue_id>\n" +
         "      </man:mc_issue_get>\n" +
         "   </soapenv:Body>\n" +
         "</soapenv:Envelope>";
