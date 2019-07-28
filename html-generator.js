@@ -7,76 +7,138 @@ class HtmlGenerator {
                 "    <div class=\"mod-content\">\n" +
                 "        <ul id=\"mantisdetails\" class=\"property-list two-cols\">\n" +
                 "            <li class=\"item\">\n" +
-                "                <div class=\"wrap\">\n" +
-                "                    <strong class=\"name\">Dealer:</strong>\n" +
-                "                    <span id=\"dealer-val\" class=\"value\">\n" +
-                task.projectName +
-                "                    </span>\n" +
-                "                </div>\n" +
+                HtmlGenerator.createField("Dealer", "dealer", task.projectName) +
                 "            </li>\n" +
                 "            <li class=\"item item-right\">\n" +
-                "                <div class=\"wrap\">\n" +
-                "                    <strong class=\"name\">Reporter:</strong>\n" +
-                "                    <span id=\"reporter-val\" class=\"value\">\n" +
-                task.reporter +
-                "                    </span>\n" +
-                "                </div>\n" +
+                HtmlGenerator.createField("Reporter", "reporter", task.reporter) +
                 "            </li>\n" +
                 "            <li class=\"item\">\n" +
-                "                <div class=\"wrap\">\n" +
-                "                    <strong class=\"name\">Priority:</strong>\n" +
-                "                    <span id=\"priority-val\" class=\"value\">\n" +
-                task.severity +
-                "                    </span>\n" +
-                "                </div>\n" +
+                HtmlGenerator.createFieldWithEdit("Priority", "priority-mantis", task.severity, HtmlGenerator.getSeverities()) +
                 "            </li>\n" +
                 "            <li class=\"item item-right\">\n" +
-                "                <div class=\"wrap\">\n" +
-                "                    <strong class=\"name\">Category:</strong>\n" +
-                "                    <span id=\"category-val\" class=\"value editable-field active\">\n" +
-                "<form id=\"category-form\" class=\"ajs-dirty-warning-exempt aui\" action=\"#\">\n" +
-                "    <select id=\"category\" name=\"category\" class=\"single-user-picker js-assignee-picker aui-ss-select\"\n" +
-                "            data-show-dropdown-button=\"true\" data-container-class=\"long-field\"\n" +
-                "            multiple=\"multiple\" style=\"display: none;\">\n" +
-                "        <option value=\"Błąd\">Błąd</option>\n" +
-                "        <option value=\"Konsultacja\">Konsultacja</option>\n" +
-                "    </select>\n" +
-                "    <div class=\"save-options\" tabindex=\"1\">\n" +
-                "        <button type=\"submit\" class=\"aui-button submit\"><span\n" +
-                "                class=\"aui-icon aui-icon-small aui-iconfont-success\">Save</span></button>\n" +
-                "        <button type=\"cancel\" class=\"aui-button cancel\"><span\n" +
-                "                class=\"aui-icon aui-icon-small aui-iconfont-close-dialog\">Cancel</span></button>\n" +
-                "    </div>\n" +
-                "</form>" +
-                "                    </span>\n" +
-                "                </div>\n" +
+                HtmlGenerator.createFieldWithEdit("Category", "category", task.category, HtmlGenerator.getCategories()) +
                 "            </li>\n" +
                 "            <li class=\"item\">\n" +
-                "                <div class=\"wrap\">\n" +
-                "                    <strong class=\"name\">Status:</strong>\n" +
-                "                    <span id=\"status-val\" class=\"value\">\n" +
-                task.status +
-                "                    </span>\n" +
-                "                </div>\n" +
+                HtmlGenerator.createFieldWithEdit("Status", "status", task.status, HtmlGenerator.getStatuses()) +
                 "            </li>\n" +
                 "            <li class=\"item item-right\">\n" +
-                "                <div class=\"wrap\">\n" +
-                "                    <strong class=\"name\">Assignee:</strong>\n" +
-                "                    <span id=\"assignee-val\" class=\"value\">\n" +
-                task.assignee +
-                "                    </span>\n" +
-                "                </div>\n" +
+                HtmlGenerator.createFieldWithEdit("Assignee", "assignee", task.assignee, HtmlGenerator.getUsers()) +
                 "            </li>\n" +
                 "            <li class=\"item\">\n" +
-                "                <div class=\"wrap\">\n" +
-                "                    <strong class=\"name\">Date:</strong>\n" +
-                "                    <span id=\"date-val\" class=\"value\">\n" +
-                task.dateSubmitted +
-                "                    </span>\n" +
-                "                </div>\n" +
+                HtmlGenerator.createField("Date", "date", task.dateSubmitted) +
                 "            </li>\n" +
                 "        </ul>\n" +
                 "    </div>\n" +
                 "</div>";
+    }
+
+    static createFieldWithEdit(label, fieldId, selectedValue, values) {
+        return "<div class=\"wrap\">\n" +
+                "    <strong class=\"name\">" + label + ":</strong>\n" +
+                "    <span id=\"" + fieldId + "-val-inactive\" class=\"value editable-field inactive\" title=\"Click to edit\">\n" +
+                     selectedValue +
+                "        <span id=\"" + fieldId + "-val-inactive-inner\" class=\"overlay-icon aui-icon aui-icon-small aui-iconfont-edit\"></span>\n" +
+                "    </span>" +
+                "    <span id=\"" + fieldId + "-val\" class=\"value editable-field active\">\n" +
+                "        <form id=\"" + fieldId + "-form\" class=\"ajs-dirty-warning-exempt aui\" action=\"javascript:void(0);\" style=\"display:none;\">\n" +
+                "            <div class=\"inline-edit-fields\" tabindex=\"1\">\n" +
+                "                <div class=\"field-group\" id=\"" + fieldId + "-container\">\n" +
+                "                    <select id=\"" + fieldId + "\" name=\"" + fieldId + "\" class=\"aui-ss-select\">\n" +
+                                     HtmlGenerator.getOptions(selectedValue, values) +
+                "                    </select>\n" +
+                "                </div>\n" +
+                "            </div>\n" +
+                "            <div class=\"save-options\" tabindex=\"1\">\n" +
+                "                <button id=\"" + fieldId + "-btn-submit\" class=\"aui-button submit\">\n" +
+                "                    <span class=\"aui-icon aui-icon-small aui-iconfont-success\">Save</span>\n" +
+                "                </button>\n" +
+                "                <button id=\"" + fieldId + "-btn-cancel\" class=\"aui-button cancel\">\n" +
+                "                    <span class=\"aui-icon aui-icon-small aui-iconfont-close-dialog\">Cancel</span>\n" +
+                "                </button>" +
+                "            </div>\n" +
+                "        </form>" +
+                "    </span>\n" +
+                "</div>\n";
+    }
+
+    static createField(label, fieldId, selectedValue) {
+        return "<div class=\"wrap\">\n" +
+            "    <strong class=\"name\">" + label + ":</strong>\n" +
+            "    <span id=\"" + fieldId + "-val\" class=\"value\">\n" +
+                 selectedValue +
+            "    </span>\n" +
+            "</div>\n";
+    }
+
+    static getCategories() {
+        var values = [];
+        values[0] = "Błąd";
+        values[1] = "Konsultacje";
+        return values;
+    }
+
+    static getSeverities() {
+        var values = [];
+        values[0] = "błahy";
+        values[1] = "drobny";
+        values[2] = "ważny";
+        values[3] = "błąd krytyczny";
+        values[4] = "blokujący";
+        return values;
+    }
+
+    static getStatuses() {
+        var values = [];
+        values[0] = "nowy";
+        values[1] = "uznany";
+        values[2] = "przypisany";
+        values[3] = "zwrócony";
+        values[4] = "potwierdzony";
+        values[5] = "rozwiązany";
+        values[6] = "zamknięty";
+        return values;
+    }
+
+    static getUsers() {
+        var values = [];
+        values[0] = "akruczynska";
+        values[1] = "brutkowski";
+        values[2] = "ejanakowska";
+        values[3] = "gstepniewski";
+        values[4] = "gszerstobitow";
+        values[5] = "jhorodecki";
+        values[6] = "kdudziak";
+        values[7] = "kmoszczynska";
+        values[8] = "lgalinski";
+        values[9] = "ljedynak";
+        values[10] = "mbartkowiak";
+        values[11] = "mchudzinski";
+        values[12] = "mgodlewski";
+        values[13] = "mkoszarska";
+        values[14] = "mmikolajczak";
+        values[15] = "mrobak";
+        values[16] = "phendrysiak";
+        values[17] = "pjanczuk";
+        values[18] = "pkonieczka";
+        values[19] = "pkrol";
+        values[20] = "pzurawski";
+        values[21] = "rirla";
+        values[22] = "sapolinarski";
+        values[23] = "snaroznowska";
+        values[24] = "tsulek";
+        return values;
+    }
+
+    static getOptions(selectedValue, values) {
+        var options = [];
+        for (var i = 0; i < values.length; i++) {
+            var selected = "";
+            if (values[i] === selectedValue) {
+                selected = "selected";
+            }
+            options.push("<option value=\"" + values[i] + "\" " + selected + ">" + values[i] + "</option>\n")
+        }
+
+        return options.join("");
     }
 }

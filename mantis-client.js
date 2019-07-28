@@ -22,29 +22,13 @@ class MantisClient {
                 var iDiv = document.createElement('div');
                 iDiv.innerHTML = htmlTask;
                 parent.insertBefore(iDiv, description);
+
+                addListenerToEdit("category");
+                addListenerToEdit("priority-mantis");
+                addListenerToEdit("status");
+                addListenerToEdit("assignee");
             }
         });
-    }
-
-    changeCategory(taskId, category) {
-        var editTask = new EditTask(taskId);
-        editTask.category = category;
-
-        this.sendEditTask(editTask);
-    }
-
-    changeStatus(taskId, status) {
-        var editTask = new EditTask(taskId);
-        editTask.status = status;
-
-        this.sendEditTask(editTask);
-    }
-
-    changeAssignee(taskId, user) {
-        var editTask = new EditTask(taskId);
-        editTask.assignee = user;
-
-        this.sendEditTask(editTask);
     }
 
     sendEditTask(editTask) {
@@ -54,7 +38,9 @@ class MantisClient {
             url: this.address,
             data: request,
             onload: function(response) {
-                this.getTask(taskId);
+                var mantisDiv = document.getElementById("mantis-details-root");
+                mantisDiv.parentNode.removeChild(mantisDiv);
+                client.getTask(editTask.taskId);
             }
         });
     }
