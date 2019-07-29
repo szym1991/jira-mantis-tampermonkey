@@ -13,7 +13,7 @@ class HtmlGenerator {
                 HtmlGenerator.createField("Reporter", "reporter", task.reporter) +
                 "            </li>\n" +
                 "            <li class=\"item\">\n" +
-                HtmlGenerator.createFieldWithEdit("Priority", "priority-mantis", task.severity, HtmlGenerator.getSeverities()) +
+                HtmlGenerator.createFieldWithEdit("Priority", "severity", task.severity, HtmlGenerator.getSeverities()) +
                 "            </li>\n" +
                 "            <li class=\"item item-right\">\n" +
                 HtmlGenerator.createFieldWithEdit("Category", "category", task.category, HtmlGenerator.getCategories()) +

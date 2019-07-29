@@ -4,6 +4,7 @@ class MantisClient {
         this.username = username;
         this.password = password;
         this.taskId = taskId;
+        this.task = null;
     }
 
 	getTask() {
@@ -14,8 +15,8 @@ class MantisClient {
             data: request,
             onload: function(response) {
                 var obj = XmlParser.parse(response.responseText, false);
-                var task = new Task(obj);
-                var htmlTask = HtmlGenerator.createMantisInfo(task);
+                this.task = new Task(obj);
+                var htmlTask = HtmlGenerator.createMantisInfo(this.task);
 
                 var parent = document.getElementsByClassName("aui-item issue-main-column")[0];
                 var description = document.getElementById("descriptionmodule");
@@ -25,25 +26,27 @@ class MantisClient {
                 parent.insertBefore(iDiv, description);
 
                 addListenerToEdit("category");
-                addListenerToEdit("priority-mantis");
+                addListenerToEdit("severity");
                 addListenerToEdit("status");
                 addListenerToEdit("assignee");
             }
         });
     }
 
-    sendEditTask(editTask) {
-        var request = this.getEditRequest(editTask);
-        GM_xmlhttpRequest({
-            method: "POST",
-            url: this.address,
-            data: request,
-            onload: function(response) {
-                var mantisDiv = document.getElementById("mantis-details-root");
-                mantisDiv.parentNode.removeChild(mantisDiv);
-                client.getTask();
-            }
-        });
+    sendEditTask() {
+        var request = this.getEditRequest();
+        //just for test now
+        console.log(request);
+//        GM_xmlhttpRequest({
+//            method: "POST",
+//            url: this.address,
+//            data: request,
+//            onload: function(response) {
+//                var mantisDiv = document.getElementById("mantis-details-root");
+//                mantisDiv.parentNode.removeChild(mantisDiv);
+//                client.getTask();
+//            }
+//        });
     }
 
     getCredentialsInXml() {
@@ -66,7 +69,7 @@ class MantisClient {
         "</soapenv:Envelope>";
     }
 
-    getEditRequest(editTask) {
+    getEditRequest() {
         var request = [];
         request.push("<soapenv:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
         " xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"\n" +
@@ -77,27 +80,58 @@ class MantisClient {
         "   <soapenv:Body>\n" +
         "      <man:mc_issue_update soapenv:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">\n" +
                   this.getCredentialsInXml() +
-        "         <issueId xsi:type=\"xsd:integer\">" + editTask.taskId + "</issueId>\n" +
+        "         <issueId xsi:type=\"xsd:integer\">" + this.task.taskId + "</issueId>\n" +
         "         <issue xsi:type=\"man:IssueData\">\n");
 
-        if (editTask.category !== null) {
-            request.push("<category xsi:type=\"xsd:string\">" + editTask.category + "</category>\n");
+        request.push("<view_state xsi:type=\"man:ObjectRef\">\n" +
+                  "<name xsi:type=\"xsd:string\">" + this.task.ViewState + "</name>\n" +
+                  "</view_state>\n");
+
+        request.push("<project xsi:type=\"man:ObjectRef\">\n" +
+                  "<name xsi:type=\"xsd:string\">" + this.task.projectName + "</name>\n" +
+                  "</project>\n");
+
+        if (this.task.category !== null) {
+            request.push("<category xsi:type=\"xsd:string\">" + this.task.category + "</category>\n");
         }
-        if (editTask.severity !== null) {
+
+        request.push("<priority xsi:type=\"man:ObjectRef\">\n" +
+                  "<name xsi:type=\"xsd:string\">" + this.task.priority + "</name>\n" +
+                  "</priority>\n");
+
+        if (this.task.severity !== null) {
             request.push("<severity xsi:type=\"man:ObjectRef\">\n" +
-            "<name xsi:type=\"xsd:string\">" + editTask.severity + "</name>\n" +
+            "<name xsi:type=\"xsd:string\">" + this.task.severity + "</name>\n" +
             "</severity>\n");
         }
-        if (editTask.status !== null) {
+        if (this.task.status !== null) {
             request.push("<status xsi:type=\"man:ObjectRef\">\n" +
-            "<name xsi:type=\"xsd:string\">" + editTask.status + "</name>\n" +
+            "<name xsi:type=\"xsd:string\">" + this.task.status + "</name>\n" +
             "</status>\n");
         }
-        if (editTask.assignee !== null) {
+
+        request.push("<reporter xsi:type=\"man:AccountData\">\n" +
+                  "<name xsi:type=\"xsd:string\">" + this.task.reporter + "</name>\n" +
+                  "</reporter>\n");
+
+        request.push("<summary xsi:type=\"xsd:string\">" + this.task.summary + "</summary>\n");
+
+        request.push("<reproducibility xsi:type=\"man:ObjectRef\">\n" +
+                  "<name xsi:type=\"xsd:string\">" + this.task.reproducibility + "</name>\n" +
+                  "</reproducibility>\n");
+
+        if (this.task.assignee !== null) {
             request.push("<handler xsi:type=\"man:AccountData\">\n" +
-            "<name xsi:type=\"xsd:string\">" + editTask.assignee + "</name>\n" +
+            "<name xsi:type=\"xsd:string\">" + this.task.assignee + "</name>\n" +
             "</handler>\n");
         }
+
+        request.push("<resolution xsi:type=\"man:ObjectRef\">\n" +
+                  "<name xsi:type=\"xsd:string\">" + this.task.resolution + "</name>\n" +
+                  "</resolution>\n");
+
+        request.push("<description xsi:type=\"xsd:string\">" + this.task.description + "</description>\n");
+
         request.push("</issue>\n" +
         "</man:mc_issue_update>\n" +
         "</soapenv:Body>\n" +
