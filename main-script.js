@@ -1,3 +1,5 @@
+var client = null;
+
 function initializeClient(address, username, password) {
     var mantisInTask = document.getElementById('customfield_10904-val');
     var mantisNumbers = mantisInTask.innerHTML.split(',');
