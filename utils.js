@@ -19,8 +19,10 @@ class Task {
         this.assignee = xmlObject.handler.name["#text"];
         this.resolution = xmlObject.resolution.name["#text"];
         this.comments = [];
-        for(var i = 0; i < xmlObject.notes.item.length; i++) {
-            this.comments[i] = new Comment(xmlObject.notes.item[i]);
+        if (xmlObject.notes !== undefined) {}
+            for(var i = 0; i < xmlObject.notes.item.length; i++) {
+                this.comments[i] = new Comment(xmlObject.notes.item[i]);
+            }
         }
     }
 }
