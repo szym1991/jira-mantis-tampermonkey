@@ -24,7 +24,7 @@ function initializeJiraCreator(jiraIssueApi, jiraUsername, jiraPassword) {
                 }
             }
         });
-    }
+    });
 }
 
 function getData() {
