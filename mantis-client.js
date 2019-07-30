@@ -84,31 +84,31 @@ class MantisClient {
         "         <issueId xsi:type=\"xsd:integer\">" + this.taskId + "</issueId>\n" +
         "         <issue xsi:type=\"man:IssueData\">\n");
 
-        request.push(this.viewState.toXml());
-        request.push(this.project.toXml());
+        request.push(this.task.viewState.toXml());
+        request.push(this.task.project.toXml());
 
         if (this.task.category !== null) {
             request.push("<category xsi:type=\"xsd:string\">" + this.task.category + "</category>\n");
         }
 
-        request.push(this.priority.toXml());
+        request.push(this.task.priority.toXml());
 
         if (this.task.severity !== null) {
-            request.push(this.severity.toXml());
+            request.push(this.task.severity.toXml());
         }
         if (this.task.status !== null) {
             request.push(this.status.toXml());
         }
 
-        request.push(this.reporter.toXml());
+        request.push(this.task.reporter.toXml());
         request.push("<summary xsi:type=\"xsd:string\">" + this.task.summary + "</summary>\n");
-        request.push(this.reproducibility.toXml());
+        request.push(this.task.reproducibility.toXml());
 
         if (this.task.assignee !== null) {
-            request.push(this.assignee.toXml());
+            request.push(this.task.assignee.toXml());
         }
 
-        request.push(this.resolution.toXml());
+        request.push(this.task.resolution.toXml());
         request.push("<description xsi:type=\"xsd:string\">" + this.task.description + "</description>\n");
 
         request.push("</issue>\n" +
