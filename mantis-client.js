@@ -16,7 +16,7 @@ class MantisClient {
             data: request,
             onload: function(response) {
                 var obj = XmlParser.parse(response.responseText, false);
-                this.task = new Task(obj);
+                clientToListener.task = new Task(obj);
                 var htmlTask = HtmlGenerator.createMantisInfo(this.task);
 
                 var parent = document.getElementsByClassName("aui-item issue-main-column")[0];
