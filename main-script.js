@@ -38,7 +38,13 @@ function addListenerToEdit(client, fieldId) {
         var spanInactive = document.getElementById(fieldId + "-val-inactive");
         var spanEdit = document.getElementById(fieldId + "-form");
 
-        client.task[fieldId] = spanEdit[0].value;
+        if (client.task[fieldId] instanceof ObjectRef ||
+            client.task[fieldId] instanceof AccountData) {
+            client.task[fieldId].id = spanEdit[0].value;
+            client.task[fieldId].value = spanEdit[0].options[spanEdit[0].selectedIndex].innerHTML;
+        } else {
+            client.task[fieldId] = spanEdit[0].value;
+        }
         client.sendEditTask();
 
         spanInactive.style.display = "";
