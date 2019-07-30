@@ -97,7 +97,7 @@ class MantisClient {
             request.push(this.task.severity.toXml());
         }
         if (this.task.status !== null) {
-            request.push(this.status.toXml());
+            request.push(this.task.status.toXml());
         }
 
         request.push(this.task.reporter.toXml());
