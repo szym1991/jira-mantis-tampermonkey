@@ -2,7 +2,7 @@ var client = null;
 
 function setClient(address, username, password) {
     if (client !== null) {
-        client.updateTask();
+        updateTask();
     }
     client = initializeClient(address, username, password);
     if (client !== null) {
