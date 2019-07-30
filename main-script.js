@@ -3,6 +3,7 @@ var client = null;
 function setClient(address, username, password) {
     if (client !== null) {
         updateTask();
+        return;
     }
     client = initializeClient(address, username, password);
     if (client !== null) {
