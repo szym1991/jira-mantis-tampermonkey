@@ -1,15 +1,44 @@
 var client = null;
 
+function setClient(address, username, password) {
+    if (client !== null) {
+        client.updateTask();
+    }
+    client = initializeClient(address, username, password);
+    if (client !== null) {
+        client.getTask();
+    }
+}
+
 function initializeClient(address, username, password) {
+    var number = getTaskIdFromJira();
+    if (number !== null) {
+        return new MantisClient(address, username, password, number);
+    }
+    return null;
+}
+
+function getTaskIdFromJira() {
     var mantisInTask = document.getElementById('customfield_10904-val');
+    if (mantisInTask === null) {
+        return null;
+    }
     var mantisNumbers = mantisInTask.innerHTML.split(',');
     for(var j=0; j < mantisNumbers.length; j++) {
         var number = mantisNumbers[j].match(/\d+/)[0];
         if (number !== undefined && !isNaN(number)) {
-            return new MantisClient(address, username, password, number);
+            return number;
         }
     }
     return null;
+}
+
+function updateTask() {
+    var number = getTaskIdFromJira();
+    if (number !== null && client.taskId !== number) {
+        client.taskId = number;
+        client.getTask();
+    }
 }
 
 function addListenerToEdit(client, fieldId) {
