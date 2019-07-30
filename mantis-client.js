@@ -84,53 +84,31 @@ class MantisClient {
         "         <issueId xsi:type=\"xsd:integer\">" + this.taskId + "</issueId>\n" +
         "         <issue xsi:type=\"man:IssueData\">\n");
 
-        request.push("<view_state xsi:type=\"man:ObjectRef\">\n" +
-                  "<name xsi:type=\"xsd:string\">" + this.task.viewState + "</name>\n" +
-                  "</view_state>\n");
-
-        request.push("<project xsi:type=\"man:ObjectRef\">\n" +
-                  "<name xsi:type=\"xsd:string\">" + this.task.project + "</name>\n" +
-                  "</project>\n");
+        request.push(this.viewState.toXml());
+        request.push(this.project.toXml());
 
         if (this.task.category !== null) {
             request.push("<category xsi:type=\"xsd:string\">" + this.task.category + "</category>\n");
         }
 
-        request.push("<priority xsi:type=\"man:ObjectRef\">\n" +
-                  "<name xsi:type=\"xsd:string\">" + this.task.priority + "</name>\n" +
-                  "</priority>\n");
+        request.push(this.priority.toXml());
 
         if (this.task.severity !== null) {
-            request.push("<severity xsi:type=\"man:ObjectRef\">\n" +
-            "<name xsi:type=\"xsd:string\">" + this.task.severity + "</name>\n" +
-            "</severity>\n");
+            request.push(this.severity.toXml());
         }
         if (this.task.status !== null) {
-            request.push("<status xsi:type=\"man:ObjectRef\">\n" +
-            "<name xsi:type=\"xsd:string\">" + this.task.status + "</name>\n" +
-            "</status>\n");
+            request.push(this.status.toXml());
         }
 
-        request.push("<reporter xsi:type=\"man:AccountData\">\n" +
-                  "<name xsi:type=\"xsd:string\">" + this.task.reporter + "</name>\n" +
-                  "</reporter>\n");
-
+        request.push(this.reporter.toXml());
         request.push("<summary xsi:type=\"xsd:string\">" + this.task.summary + "</summary>\n");
-
-        request.push("<reproducibility xsi:type=\"man:ObjectRef\">\n" +
-                  "<name xsi:type=\"xsd:string\">" + this.task.reproducibility + "</name>\n" +
-                  "</reproducibility>\n");
+        request.push(this.reproducibility.toXml());
 
         if (this.task.assignee !== null) {
-            request.push("<handler xsi:type=\"man:AccountData\">\n" +
-            "<name xsi:type=\"xsd:string\">" + this.task.assignee + "</name>\n" +
-            "</handler>\n");
+            request.push(this.assignee.toXml());
         }
 
-        request.push("<resolution xsi:type=\"man:ObjectRef\">\n" +
-                  "<name xsi:type=\"xsd:string\">" + this.task.resolution + "</name>\n" +
-                  "</resolution>\n");
-
+        request.push(this.resolution.toXml());
         request.push("<description xsi:type=\"xsd:string\">" + this.task.description + "</description>\n");
 
         request.push("</issue>\n" +

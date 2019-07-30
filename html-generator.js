@@ -33,10 +33,17 @@ class HtmlGenerator {
     }
 
     static createFieldWithEdit(label, fieldId, selectedValue, values) {
+        var value;
+        if (selectedValue instanceof ObjectRef ||
+            selectedValue instanceof AccountData) {
+            value = selectedValue.value;
+        } else {
+            value = selectedValue;
+        }
         return "<div class=\"wrap\">\n" +
                 "    <strong class=\"name\">" + label + ":</strong>\n" +
                 "    <span id=\"" + fieldId + "-val-inactive\" class=\"value editable-field inactive\" title=\"Click to edit\">\n" +
-                     selectedValue.value +
+                     value +
                 "        <span id=\"" + fieldId + "-val-inactive-inner\" class=\"overlay-icon aui-icon aui-icon-small aui-iconfont-edit\"></span>\n" +
                 "    </span>" +
                 "    <span id=\"" + fieldId + "-val\" class=\"value editable-field active\">\n" +

@@ -56,14 +56,14 @@ class ObjectRef {
 
 class AccountData {
     constructor(xmlPropertyName, id, value) {
-            this.xmlPropertyName = xmlPropertyName;
-            this.id = id;
-            this.value = value;
-        }
+        this.xmlPropertyName = xmlPropertyName;
+        this.id = id;
+        this.value = value;
+    }
 
-        static fromXml(xmlPropertyName, xmlObject) {
-            return new AccountData(xmlPropertyName, xmlObject.id["#text"], xmlObject.name["#text"]);
-        }
+    static fromXml(xmlPropertyName, xmlObject) {
+        return new AccountData(xmlPropertyName, xmlObject.id["#text"], xmlObject.name["#text"]);
+    }
 
     toXml() {
         return "<"+ this.xmlPropertyName +" xsi:type=\"man:AccountData\">\n" +
