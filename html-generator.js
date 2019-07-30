@@ -149,7 +149,7 @@ class HtmlGenerator {
             var options = [];
             for (var i = 0; i < values.length; i++) {
                 var selected = "";
-                if (values[i].id === selectedValue.id) {
+                if (values[i].id.toString() === selectedValue.id.toString()) {
                     selected = "selected";
                 }
                 options.push("<option value=\"" + values[i].id + "\" " + selected + ">" + values[i].value + "</option>\n")
