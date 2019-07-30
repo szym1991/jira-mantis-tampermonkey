@@ -8,6 +8,10 @@ class MantisClient {
     }
 
 	getTask() {
+	    var mantisDiv = document.getElementById("mantis-details-root");
+	    if (mantisDiv !== null) {
+            mantisDiv.parentNode.removeChild(mantisDiv);
+        }
         var request = this.getTaskRequest();
         var clientToListener = this;
         GM_xmlhttpRequest({
@@ -43,8 +47,6 @@ class MantisClient {
             url: this.address,
             data: request,
             onload: function(response) {
-                var mantisDiv = document.getElementById("mantis-details-root");
-                mantisDiv.parentNode.removeChild(mantisDiv);
                 clientToListener.getTask();
             }
         });
