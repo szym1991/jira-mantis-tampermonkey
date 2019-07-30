@@ -17,7 +17,7 @@ class MantisClient {
             onload: function(response) {
                 var obj = XmlParser.parse(response.responseText, false);
                 clientToListener.task = new Task(obj);
-                var htmlTask = HtmlGenerator.createMantisInfo(this.task);
+                var htmlTask = HtmlGenerator.createMantisInfo(clientToListener.task);
 
                 var parent = document.getElementsByClassName("aui-item issue-main-column")[0];
                 var description = document.getElementById("descriptionmodule");
