@@ -12,7 +12,7 @@ function initializeClient(address, username, password) {
     return null;
 }
 
-function addListenerToEdit(fieldId) {
+function addListenerToEdit(client, fieldId) {
     var inactiveSpan = document.getElementById(fieldId + "-val-inactive");
     var inactiveSpanInner = document.getElementById(fieldId + "-val-inactive-inner");
     var submitBtn = document.getElementById(fieldId + "-btn-submit");

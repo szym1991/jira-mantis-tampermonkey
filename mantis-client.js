@@ -9,6 +9,7 @@ class MantisClient {
 
 	getTask() {
         var request = this.getTaskRequest();
+        var clientToListener = this;
         GM_xmlhttpRequest({
             method: "POST",
             url: this.address,
@@ -25,10 +26,10 @@ class MantisClient {
                 iDiv.innerHTML = htmlTask;
                 parent.insertBefore(iDiv, description);
 
-                addListenerToEdit("category");
-                addListenerToEdit("severity");
-                addListenerToEdit("status");
-                addListenerToEdit("assignee");
+                addListenerToEdit(clientToListener, "category");
+                addListenerToEdit(clientToListener, "severity");
+                addListenerToEdit(clientToListener, "status");
+                addListenerToEdit(clientToListener, "assignee");
             }
         });
     }
