@@ -23,6 +23,7 @@ class MantisClient {
                 var description = document.getElementById("descriptionmodule");
 
                 var iDiv = document.createElement('div');
+                iDiv.id = "mantis-details-root";
                 iDiv.innerHTML = htmlTask;
                 parent.insertBefore(iDiv, description);
 
@@ -37,17 +38,16 @@ class MantisClient {
     sendEditTask() {
         var request = this.getEditRequest();
         var clientToListener = this;
-        console.log(request);
-//        GM_xmlhttpRequest({
-//            method: "POST",
-//            url: this.address,
-//            data: request,
-//            onload: function(response) {
-//                var mantisDiv = document.getElementById("mantis-details-root");
-//                mantisDiv.parentNode.removeChild(mantisDiv);
-//                clientToListener.getTask();
-//            }
-//        });
+        GM_xmlhttpRequest({
+            method: "POST",
+            url: this.address,
+            data: request,
+            onload: function(response) {
+                var mantisDiv = document.getElementById("mantis-details-root");
+                mantisDiv.parentNode.removeChild(mantisDiv);
+                clientToListener.getTask();
+            }
+        });
     }
 
     getCredentialsInXml() {
