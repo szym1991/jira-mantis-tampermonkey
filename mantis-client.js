@@ -36,18 +36,18 @@ class MantisClient {
 
     sendEditTask() {
         var request = this.getEditRequest();
-        //just for test now
+        var clientToListener = this;
         console.log(request);
-//        GM_xmlhttpRequest({
-//            method: "POST",
-//            url: this.address,
-//            data: request,
-//            onload: function(response) {
-//                var mantisDiv = document.getElementById("mantis-details-root");
-//                mantisDiv.parentNode.removeChild(mantisDiv);
-//                client.getTask();
-//            }
-//        });
+        GM_xmlhttpRequest({
+            method: "POST",
+            url: this.address,
+            data: request,
+            onload: function(response) {
+                var mantisDiv = document.getElementById("mantis-details-root");
+                mantisDiv.parentNode.removeChild(mantisDiv);
+                clientToListener.getTask();
+            }
+        });
     }
 
     getCredentialsInXml() {
@@ -81,7 +81,7 @@ class MantisClient {
         "   <soapenv:Body>\n" +
         "      <man:mc_issue_update soapenv:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">\n" +
                   this.getCredentialsInXml() +
-        "         <issueId xsi:type=\"xsd:integer\">" + this.task.taskId + "</issueId>\n" +
+        "         <issueId xsi:type=\"xsd:integer\">" + this.taskId + "</issueId>\n" +
         "         <issue xsi:type=\"man:IssueData\">\n");
 
         request.push("<view_state xsi:type=\"man:ObjectRef\">\n" +
