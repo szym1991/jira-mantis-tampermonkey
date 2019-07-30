@@ -38,16 +38,16 @@ class MantisClient {
         var request = this.getEditRequest();
         var clientToListener = this;
         console.log(request);
-        GM_xmlhttpRequest({
-            method: "POST",
-            url: this.address,
-            data: request,
-            onload: function(response) {
-                var mantisDiv = document.getElementById("mantis-details-root");
-                mantisDiv.parentNode.removeChild(mantisDiv);
-                clientToListener.getTask();
-            }
-        });
+//        GM_xmlhttpRequest({
+//            method: "POST",
+//            url: this.address,
+//            data: request,
+//            onload: function(response) {
+//                var mantisDiv = document.getElementById("mantis-details-root");
+//                mantisDiv.parentNode.removeChild(mantisDiv);
+//                clientToListener.getTask();
+//            }
+//        });
     }
 
     getCredentialsInXml() {
@@ -89,7 +89,7 @@ class MantisClient {
                   "</view_state>\n");
 
         request.push("<project xsi:type=\"man:ObjectRef\">\n" +
-                  "<name xsi:type=\"xsd:string\">" + this.task.projectName + "</name>\n" +
+                  "<name xsi:type=\"xsd:string\">" + this.task.project + "</name>\n" +
                   "</project>\n");
 
         if (this.task.category !== null) {
