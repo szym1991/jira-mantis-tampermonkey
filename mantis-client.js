@@ -85,7 +85,7 @@ class MantisClient {
         "         <issue xsi:type=\"man:IssueData\">\n");
 
         request.push("<view_state xsi:type=\"man:ObjectRef\">\n" +
-                  "<name xsi:type=\"xsd:string\">" + this.task.ViewState + "</name>\n" +
+                  "<name xsi:type=\"xsd:string\">" + this.task.viewState + "</name>\n" +
                   "</view_state>\n");
 
         request.push("<project xsi:type=\"man:ObjectRef\">\n" +
