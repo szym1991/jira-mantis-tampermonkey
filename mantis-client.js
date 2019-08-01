@@ -36,7 +36,7 @@ class MantisClient {
                 addListenerToEdit(clientToListener, "status");
                 addListenerToEdit(clientToListener, "assignee");
 
-                addComments(clientToListener.task);
+                // addComments(clientToListener.task);
             }
         });
     }
