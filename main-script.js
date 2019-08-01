@@ -90,3 +90,15 @@ function addListenerToEdit(client, fieldId) {
         spanEdit.style.display = "none";
     }, false);
 }
+
+function addComments(task) {
+    var issueTabs = document.getElementById("issue-tabs");
+    var li = document.createElement("li");
+    li.id = "mantiscomments-tabpanel";
+    li.innerHTML = "<strong>Mantis comments</strong>";
+    li.addEventListener("click", function() {
+        var container = document.getElementById("issue_actions_container");
+        container.innerHTML = HtmlGenerator.createComments(task);
+    }
+    issueTabs.appendChild(li);
+}

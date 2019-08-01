@@ -167,4 +167,21 @@ class HtmlGenerator {
 
         return options.join("");
     }
+
+    static createComments(task) {
+        var comments = [];
+        for (var i = 0; i < task.comments.length; i++) {
+            comments.push("<div class=\"issue-data-block activity-comment twixi-block  expanded\">\n" +
+                              "     <div class=\"twixi-wrap verbose actionContainer\">\n" +
+                              "         <div class=\"action-head\">\n" +
+                              "             <div class=\"action-details\"> awojtas added a comment - 8 hours ago</div>\n" +
+                              "         </div>\n" +
+                              "         <div class=\"action-body flooded\">\n" +
+                              "             <p>To jest SmartPlan, pewnie dlatego. Nie zauważyłem, przepraszam za fałszywy alarm.</p>\n" +
+                              "         </div>\n" +
+                              "     </div>\n" +
+                              "</div>\n");
+        }
+        return comments.join("");
+    }
 }
