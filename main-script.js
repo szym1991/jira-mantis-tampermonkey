@@ -99,6 +99,6 @@ function addComments(task) {
     li.addEventListener("click", function() {
         var container = document.getElementById("issue_actions_container");
         container.innerHTML = HtmlGenerator.createComments(task);
-    }
+    }, false);
     issueTabs.appendChild(li);
 }

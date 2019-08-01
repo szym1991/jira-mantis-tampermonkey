@@ -174,10 +174,11 @@ class HtmlGenerator {
             comments.push("<div class=\"issue-data-block activity-comment twixi-block  expanded\">\n" +
                               "     <div class=\"twixi-wrap verbose actionContainer\">\n" +
                               "         <div class=\"action-head\">\n" +
-                              "             <div class=\"action-details\"> awojtas added a comment - 8 hours ago</div>\n" +
+                              "             <div class=\"action-details\">"+ task.comments[i].author + " added a comment " +
+                                            task.comments[i].dateSubmitted + "</div>\n" +
                               "         </div>\n" +
                               "         <div class=\"action-body flooded\">\n" +
-                              "             <p>To jest SmartPlan, pewnie dlatego. Nie zauważyłem, przepraszam za fałszywy alarm.</p>\n" +
+                              "             <p>" + task.comments[i].text + "</p>\n" +
                               "         </div>\n" +
                               "     </div>\n" +
                               "</div>\n");
