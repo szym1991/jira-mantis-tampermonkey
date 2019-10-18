@@ -45,7 +45,7 @@ class JiraTicket {
         this.fields.project = {};
         this.fields.project.key = "DMS";
         this.fields.parent = {};
-        this.fields.parent.key = "DMS-9385";
+        this.fields.parent.key = "DMS-8793";
         this.fields.summary = summary;
         this.fields.description = description;
         this.fields.issuetype = {};
