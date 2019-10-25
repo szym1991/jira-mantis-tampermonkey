@@ -20,6 +20,8 @@ function initializeJiraCreator(jiraIssueApi, jiraUsername, jiraPassword) {
                     var jiraTicket = JSON.parse(response.responseText).key;
                     document.getElementById("bugnote_text").value = jiraTicket;
                     document.getElementById("bugnoteadd").submit();
+                } else {
+                    console.log(response);
                 }
             }
         });
