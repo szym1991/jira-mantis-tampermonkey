@@ -10,7 +10,7 @@ class JiraTicket {
         this.fields.issuetype = {};
         this.fields.issuetype.id = "10501";
         this.fields.labels = [label];
-        // this.fields.dueDate = dueDate;
+        this.fields.customfield_12300 = dueDate;
         this.fields.customfield_10904 = taskId;
         this.fields.customfield_11700 = {"name": assignee};
     }
