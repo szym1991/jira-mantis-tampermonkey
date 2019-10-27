@@ -30,10 +30,7 @@ function initializeJiraCreator(jiraIssueApi, jiraUsername, jiraPassword) {
 
     var iSpan = document.createElement('div');
     iSpan.className = "label hidden-xs label-default";
-    var date = jiraData.fields.dueDate;
-    var dateString = date.getDate() + "-" + (date.getMonth()+1) + "-" +
-        date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
-    iSpan.innerHTML = "SLA: " + dateString;
+    iSpan.innerHTML = "SLA: " + jiraData.dueDateToString();
     parent.appendChild(iSpan);
 }
 
