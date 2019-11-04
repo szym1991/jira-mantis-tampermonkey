@@ -1,5 +1,7 @@
 var client = null;
 
+var jiraCredentials = null;
+
 function setClient(address, username, password) {
     if (client !== null) {
         updateTask();
@@ -9,6 +11,13 @@ function setClient(address, username, password) {
     if (client !== null) {
         client.getTask();
     }
+}
+
+function setJiraCredentials(jiraUrl, jiraUsername, jiraPassword) {
+    jiraCredentials = {};
+    jiraCredentials.url = jiraUrl;
+    jiraCredentials.user = jiraUsername;
+    jiraCredentials.password = jiraPassword;
 }
 
 function initializeClient(address, username, password) {
@@ -107,7 +116,7 @@ function checkJiraDueDate(mantisTask) {
 
     if (dueDate.getTime() !== newDueDate.getTime()) {
         var jiraKey = document.getElementById("key-val").innerText;
-        var jiraIssueApi = jiraUrl + "/" + jiraKey;
+        var jiraIssueApi = jiraCredentials.url + "/" + jiraKey;
         var jiraTicket = new JiraTicket(null, null, null, null, null, newDueDate);
         GM_xmlhttpRequest({
             method: "POST",
@@ -116,8 +125,8 @@ function checkJiraDueDate(mantisTask) {
                 "Content-Type": "Application/json"
             },
             data: JSON.stringify(jiraTicket.getUpdateTicket()),
-            username: jiraUsername,
-            password: jiraPassword,
+            username: jiraCredentials.user,
+            password: jiraCredentials.password,
             onload: function(response) {
                 if (response.status === 204) {
                     location.reload();
