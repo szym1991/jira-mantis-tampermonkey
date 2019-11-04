@@ -66,7 +66,7 @@ class JiraTicket {
     getUpdateTicket() {
         var updateTicket = {};
         updateTicket.update = {};
-        updateTicket.update.customfield_12300 = [{"set": this.dueDateToJiraString(this.dueDate)}];
+        updateTicket.update.customfield_12300 = [{"set": this.fields.customfield_12300}];
         return updateTicket;
     }
 }

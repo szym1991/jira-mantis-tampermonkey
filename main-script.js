@@ -95,12 +95,13 @@ function checkJiraDueDate(mantisTask) {
     var dueDateField = document.getElementById("customfield_12300-val");
     if (dueDateField !== null) {
         var dueDate = new Date(document.getElementById("customfield_12300-val").children[0].title);
-        var createdDate = new Date(mantisTask.dateSubmitted);
+        var createdTime = new Date(mantisTask.dateSubmitted);
         var category = mantisTask.category;
         var severity = mantisTask.severity.value;
 
         var ddc = new DueDateCalculator(8, 18);
         var newDueDate = ddc.calculateDueDate(createdTime, category, severity);
+        newDueDate.setSeconds(0, 0);
 
         if (dueDate.getTime() !== newDueDate.getTime()) {
             var jiraKey = document.getElementById("key-val").innerText;
