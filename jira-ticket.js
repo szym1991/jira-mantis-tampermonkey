@@ -62,4 +62,11 @@ class JiraTicket {
 
         return currentDatetime + timezoneStandard;
     }
+
+    getUpdateTicket() {
+        var updateTicket = {};
+        updateTicket.update = {};
+        updateTicket.update.customfield_12300 = [{"set": this.dueDateToJiraString(this.dueDate)}];
+        return updateTicket;
+    }
 }
