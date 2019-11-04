@@ -128,9 +128,7 @@ function checkJiraDueDate(mantisTask) {
             username: jiraCredentials.user,
             password: jiraCredentials.password,
             onload: function(response) {
-                if (response.status === 204) {
-                    location.reload();
-                } else {
+                if (response.status !== 204) {
                     console.log(response);
                 }
             }
