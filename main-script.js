@@ -132,8 +132,6 @@ function addComments(task) {
     li.id = "mantiscomments-tabpanel";
     li.innerHTML = "<strong>Mantis comments</strong>";
     li.addEventListener("click", function() {
-    this.styleClass = "active";
-    }
         var container = document.getElementById("issue_actions_container");
         container.innerHTML = HtmlGenerator.createComments(task);
     }, false);
