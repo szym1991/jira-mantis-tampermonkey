@@ -119,7 +119,7 @@ function checkJiraDueDate(mantisTask) {
         var jiraIssueApi = jiraCredentials.url + "/" + jiraKey;
         var jiraTicket = new JiraTicket(null, null, null, null, null, newDueDate);
         GM_xmlhttpRequest({
-            method: "POST",
+            method: "PUT",
             url: jiraIssueApi,
             headers: {
                 "Content-Type": "Application/json"
