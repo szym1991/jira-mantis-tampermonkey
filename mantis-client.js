@@ -36,6 +36,8 @@ class MantisClient {
                 addListenerToEdit(clientToListener, "status");
                 addListenerToEdit(clientToListener, "assignee");
 
+                checkJiraDueDate(clientToListener.task);
+
                 // addComments(clientToListener.task);
             }
         });
