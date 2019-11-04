@@ -92,9 +92,9 @@ function addListenerToEdit(client, fieldId) {
 }
 
 function checkJiraDueDate(mantisTask) {
-    var dueDateField = document.getElementById("customfield_12300-val")
+    var dueDateField = document.getElementById("customfield_12300-val");
     if (dueDateField !== null) {
-        var dueDate = new Date(document.getElementById("customfield_12300-val").children[0].title)
+        var dueDate = new Date(document.getElementById("customfield_12300-val").children[0].title);
         var createdDate = new Date(mantisTask.dateSubmitted);
         var category = mantisTask.category;
         var severity = mantisTask.severity.value;
