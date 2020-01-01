@@ -1,4 +1,4 @@
-function initializeServiceNowCreator() {
+function initializeServiceNowCreator(jiraIssueApi, jiraUsername, jiraPassword) {
     var jiraData = getData();
     var parent = document.getElementsByClassName("navbar_ui_actions")[0];
     var iDiv = document.createElement('div');
