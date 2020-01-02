@@ -128,5 +128,5 @@ function getData() {
         label = "UTRZYMANIE";
     }
 
-    return new JiraTicket(taskId, jiraSummary, description, assignee, label, dueDate);
+    return new JiraTicket(taskId, summary, description, assignee, label, dueDate);
 }
