@@ -18,8 +18,8 @@ function initializeServiceNowCreator(jiraIssueApi, jiraUsername, jiraPassword) {
                 onload: function(response) {
                     if (response.status === 201) {
                         var jiraTicket = JSON.parse(response.responseText).key;
-                        document.getElementById("activity-stream-textarea").value = jiraTicket;
-                        document.getElementsByClassName("btn btn-default pull-right activity-submit")[0].click();
+                        document.getElementById("incident.u_tme_vendor_ticket_number").value = jiraTicket;
+                        document.getElementById("save_bottom").submit();
                     } else {
                         console.log(response);
                     }
