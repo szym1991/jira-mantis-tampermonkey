@@ -19,7 +19,7 @@ function initializeServiceNowCreator(jiraIssueApi, jiraUsername, jiraPassword) {
                     if (response.status === 201) {
                         var jiraTicket = JSON.parse(response.responseText).key;
                         document.getElementById("incident.u_tme_vendor_ticket_number").value = jiraTicket;
-                        document.getElementById("save_bottom").submit();
+                        document.getElementById("save_bottom").click();
                     } else {
                         console.log(response);
                     }
