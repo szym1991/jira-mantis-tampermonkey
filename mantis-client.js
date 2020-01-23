@@ -115,6 +115,13 @@ class MantisClient {
         }
 
         request.push(this.task.resolution.toXml());
+
+        this.task.description = this.task.description.replace(/&/g, '&amp;')
+                                        .replace(/</g, '&lt;')
+                                        .replace(/>/g, '&gt;')
+                                        .replace(/"/g, '&quot;')
+                                        .replace(/'/g, '&apos;');
+
         request.push("<description xsi:type=\"xsd:string\">" + this.task.description + "</description>\n");
 
         request.push("</issue>\n" +
