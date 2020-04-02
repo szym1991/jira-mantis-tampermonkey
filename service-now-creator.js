@@ -1,5 +1,11 @@
 function initializeServiceNowCreator(jiraIssueApi, jiraUsername, jiraPassword) {
+    initializeServiceNowCreator(null, jiraIssueApi, jiraUsername, jiraPassword);
+}
+function initializeServiceNowCreator(parentJira, jiraIssueApi, jiraUsername, jiraPassword) {
     var jiraData = getData();
+    if (parentJira !== null) {
+        jiraData.fields.parent.key = parentJira;
+    }
     var parent = document.getElementsByClassName("navbar_ui_actions")[0];
     var iDiv = document.createElement('div');
     iDiv.className = "form_action_button header  action_context btn btn-default";

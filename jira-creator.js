@@ -1,5 +1,12 @@
 function initializeJiraCreator(jiraIssueApi, jiraUsername, jiraPassword) {
+    initializeJiraCreator(null, jiraIssueApi, jiraUsername, jiraPassword);
+}
+
+function initializeJiraCreator(parentJira, jiraIssueApi, jiraUsername, jiraPassword) {
     var jiraData = getData();
+    if (parentJira !== null) {
+        jiraData.fields.parent.key = parentJira;
+    }
     var parent = document.getElementsByClassName("btn-group pull-left")[0];
     var iDiv = document.createElement('div');
     iDiv.className = "btn btn-primary btn-white btn-round btn-sm";
