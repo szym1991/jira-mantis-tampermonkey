@@ -1,4 +1,4 @@
-function initializeJiraCreator(jiraIssueApi, jiraUsername, jiraPassword) {
+function initializeJiraTimeLogger(jiraIssueApi, jiraUsername, jiraPassword) {
     var element = document.getElementsByClassName("issue-link")[1];
     var ticketKey = element ? element.innerText : undefined;
 
