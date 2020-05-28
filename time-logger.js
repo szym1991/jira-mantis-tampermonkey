@@ -12,6 +12,7 @@ function setTimeToLog() {
     if (customLogTime) {
         customLogTime.value = getCurrentTimeToLog();
     }
+    refreshLogTimeSummary("log-time-summary-custom");
 }
 
 function createLogTimeSummary(id) {
@@ -34,7 +35,7 @@ function createLogTimeSummary(id) {
 
 function refreshLogTimeSummary(id) {
     var summary = document.getElementById(id);
-    if (document.getElementById(id) === null) {
+    if (summary === null) {
         return;
     }
     summary.innerHTML = getLogTimeSummary();
@@ -92,7 +93,6 @@ function createLogTimeInput(id, jiraApi, jiraUsername, jiraPassword, ticketKey) 
                     var timeInSeconds = JSON.parse(response.responseText).timeSpentSeconds;
                     addTimeToLocalStorage(timeInSeconds);
                     setTimeToLog();
-                    refreshLogTimeSummary("log-time-summary-custom");
                 } else {
                     console.log(response);
                 }
