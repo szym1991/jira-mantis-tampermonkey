@@ -1,3 +1,107 @@
+function initializeJiraCreator(jiraIssueApi, jiraUsername, jiraPassword) {
+    var element = document.getElementsByClassName("issue-link")[1];
+    var ticketKey = element ? element.innerText : undefined;
+
+    createLogTimeInput("log-work-custom-form", jiraIssueApi, jiraUsername, jiraPassword, ticketKey);
+    createLogTimeSummary("log-time-summary-custom")
+    setTimeToLog();
+}
+
+function setTimeToLog() {
+    var customLogTime = document.getElementById("customlogtime");
+    if (customLogTime) {
+        customLogTime.value = getCurrentTimeToLog();
+    }
+}
+
+function createLogTimeSummary(id) {
+    if (document.getElementById(id) !== null) {
+        return;
+    }
+    var parent = document.getElementsByClassName("aui-nav")[0];
+    if (parent === null) {
+        return;
+    }
+    var iLi = document.createElement('li');
+    iLi.className = "toolbar-item";
+    var iAElement = document.createElement('a');
+    iAElement.id = id;
+    iAElement.className = "aui-nav-link";
+    iAElement.innerHTML = getLogTimeSummary();
+    iLi.appendChild(iAElement);
+    parent.appendChild(iLi);
+}
+
+function refreshLogTimeSummary(id) {
+    var summary = document.getElementById(id);
+    if (document.getElementById(id) === null) {
+        return;
+    }
+    summary.innerHTML = getLogTimeSummary();
+}
+function getLogTimeSummary() {
+    return "Zalogowano dzisiaj: " + getLoggedTime();
+}
+
+function createLogTimeInput(id, jiraApi, jiraUsername, jiraPassword, ticketKey) {
+    if (document.getElementById(id) !== null) {
+        return;
+    }
+    var parent = document.getElementById("opsbar-jira.issue.tools");
+    if (parent === null) {
+        return;
+    }
+    var iLi = document.createElement('li');
+    iLi.className = "toolbar-item";
+    var formElement = document.createElement('form');
+    formElement.id = id;
+    formElement.className = "ajs-dirty-warning-exempt aui";
+    formElement.action = "#";
+    var iInputElement = document.createElement('input');
+    iInputElement.className = "textfield text short-field";
+    iInputElement.id = "customlogtime";
+    iInputElement.name = "customlogtime";
+    iInputElement.maxlength = "10";
+    iInputElement.type = "text";
+
+    var buttonElement = document.createElement('a');
+    buttonElement.className = "aui-button submit"
+    buttonElement.innerHTML = "<span class=\"aui-icon aui-icon-small aui-iconfont-success\">Save</span>"
+    formElement.appendChild(iInputElement);
+    formElement.appendChild(buttonElement);
+    iLi.appendChild(formElement);
+    parent.appendChild(iLi);
+
+    buttonElement.addEventListener("click", function() {
+
+    var jiraIssueApi = jiraApi + "/" + ticketKey + "/worklog";
+        var jiraData = {};
+        jiraData.started = dateToJiraString(new Date());
+        jiraData.timeSpent = document.getElementById("customlogtime").value;
+        GM_xmlhttpRequest({
+            method: "POST",
+            url: jiraIssueApi,
+            headers: {
+                "Content-Type": "Application/json"
+            },
+            data: JSON.stringify(jiraData),
+            username: jiraUsername,
+            password: jiraPassword,
+            onload: function(response) {
+                if (response.status === 201) {
+                    var timeInSeconds = JSON.parse(response.responseText).timeSpentSeconds;
+                    addTimeToLocalStorage(timeInSeconds);
+                    setTimeToLog();
+                    refreshLogTimeSummary("log-time-summary-custom");
+                } else {
+                    console.log(response);
+                }
+            }
+        });
+    });
+}
+
+
 function addTimeToLocalStorage(seconds) {
     var key = getTimeSpentKey();
     var currentTimeSpent = parseInt(GM_getValue(key));
