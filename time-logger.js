@@ -78,7 +78,12 @@ function createLogTimeInput(id, jiraApi, jiraUsername, jiraPassword, ticketKey) 
     var jiraIssueApi = jiraApi + "/" + ticketKey + "/worklog";
         var jiraData = {};
         jiraData.started = dateToJiraString(new Date());
-        jiraData.timeSpent = document.getElementById("customlogtime").value;
+        var secondsToLog = getSecondsToLog(document.getElementById("customlogtime").value);
+        if (secondsToLog === 0) {
+            alert("Nie sparsowałem...");
+            return;
+        }
+        jiraData.timeSpentSeconds = secondsToLog;
         GM_xmlhttpRequest({
             method: "POST",
             url: jiraIssueApi,
@@ -138,6 +143,25 @@ function getCurrentTimeToLog() {
         return hours + "h " + minutes + "m";
     }
     return minutes + "m";
+}
+
+function getSecondsToLog(inputVal) {
+    var split = inputVal.split(" ");
+    var hours = 0;
+    var minutes = 0;
+    var arrayLength = split.length;
+    for (var i = 0; i < arrayLength; i++) {
+    		var val = split[i];
+        var intVal = parseInt(val.substring(0, val.length - 1));
+        if (!isNaN(intVal)) {
+        	if (val.endsWith("h")) {
+          	hours += intVal;
+          } else if (val.endsWith("m")) {
+          	minutes += intVal;
+          }
+        }
+    }
+    return ((hours * 60) + minutes) * 60;
 }
 
 function parseSecondsOfCurrentTime() {
