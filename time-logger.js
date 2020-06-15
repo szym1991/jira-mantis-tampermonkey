@@ -1,5 +1,6 @@
 function initializeJiraTimeLogger(jiraIssueApi, jiraUsername, jiraPassword) {
-    var element = document.getElementsByClassName("issue-link")[1];
+    var issueLinks = document.getElementsByClassName("issue-link");
+    var element = issueLinks[issueLinks.length - 1];
     var ticketKey = element ? element.innerText : undefined;
 
     createLogTimeInput("log-work-custom-form", jiraIssueApi, jiraUsername, jiraPassword, ticketKey);
