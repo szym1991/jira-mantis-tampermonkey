@@ -1,7 +1,7 @@
 function initializeJiraTimeLogger(jiraIssueApi, jiraUsername, jiraPassword) {
-    var issueLinks = document.getElementsByClassName("issue-link");
-    var element = issueLinks[issueLinks.length - 1];
-    var ticketKey = element ? element.innerText : undefined;
+    var nav = document.getElementsByClassName("aui-nav aui-nav-breadcrumbs")[0];
+    var element = nav.children[nav.childElementCount - 1];
+    var ticketKey = element ? element.children[0].innerText : undefined;
 
     createLogTimeInput("log-work-custom-form", jiraIssueApi, jiraUsername, jiraPassword, ticketKey);
     createLogTimeSummary("log-time-summary-custom")
