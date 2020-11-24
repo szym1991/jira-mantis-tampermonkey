@@ -8,7 +8,7 @@ class JiraTicket {
         this.fields.issuetype = {};
         if (asChanges) {
             this.fields.issuetype.id = "10201"; //Bug
-            this.fields.customfield_12400 = "CHANGES"; //issue kind
+            this.fields.customfield_12400 = {"value": "CHANGES"}; //issue kind
             this.fields.customfield_12500 = taskId; //nr_zgloszenia_changes
         } else {
             this.fields.parent = {};

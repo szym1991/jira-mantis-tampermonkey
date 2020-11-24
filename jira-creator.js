@@ -28,7 +28,7 @@ function initializeJiraCreator(parentJira, jiraIssueApi, jiraUsername, jiraPassw
                     document.getElementById("bugnote_text").value = jiraTicket;
                     document.getElementById("bugnoteadd").submit();
                 } else {
-                    console.log(response);
+                    console.log(response.responseText);
                 }
             }
         });
