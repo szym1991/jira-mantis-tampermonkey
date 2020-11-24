@@ -51,10 +51,10 @@ function getData() {
     var tag = projectId.pop();
     var asChanges = false;
     if (tag === "changes") {
-        jiraSummary = "[" + tag + "] " + summary.join(" ");;
+        jiraSummary = "[CR] " + summary.join(" ");
         asChanges = true;
     } else {
-        jiraSummary = "[CR] " + summary.join(" ");
+        jiraSummary = "[" + tag + "] " + summary.join(" ");
     }
     var description = document.getElementsByClassName("bug-description")[1].innerText;
     var severity = document.getElementsByClassName("bug-severity")[1].innerText;
