@@ -10,6 +10,7 @@ class JiraTicket {
             this.fields.issuetype.id = "10201"; //Bug
             this.fields.customfield_12400 = {"value": "CHANGES"}; //issue kind
             this.fields.customfield_12500 = taskId; //nr_zgloszenia_changes
+            this.fields.customfield_10904 = taskId; //nr_zgloszenia
         } else {
             this.fields.parent = {};
             this.fields.parent.key = "DMS-13823";
