@@ -4,7 +4,7 @@ function initializeJiraCreator(jiraIssueApi, jiraUsername, jiraPassword) {
 
 function initializeJiraCreator(parentJira, jiraIssueApi, jiraUsername, jiraPassword) {
     var jiraData = getData();
-    if (parentJira !== null) {
+    if (parentJira !== null && jiraData.fields.parent != null) {
         jiraData.fields.parent.key = parentJira;
     }
     var parent = document.getElementsByClassName("btn-group pull-left")[0];
@@ -47,7 +47,15 @@ function getData() {
     var projectId = document.getElementsByClassName("bug-project")[1].innerText.split(" ");
     var summary = document.getElementsByClassName("bug-summary")[1].innerText.split(" ");
     summary.shift();
-    var jiraSummary = "[" + projectId.pop() + "] " + summary.join(" ");
+    var jiraSummary = "";
+    var tag = projectId.pop();
+    var asChanges = false;
+    if (tag === "changes") {
+        jiraSummary = "[" + tag + "] " + summary.join(" ");;
+        asChanges = true;
+    } else {
+        jiraSummary = "[CR] " + summary.join(" ");
+    }
     var description = document.getElementsByClassName("bug-description")[1].innerText;
     var severity = document.getElementsByClassName("bug-severity")[1].innerText;
     var category = document.getElementsByClassName("bug-category")[1].innerText.split(" ").pop();
@@ -61,5 +69,5 @@ function getData() {
     if (category.toUpperCase() === "KONSULTACJE") {
         label = "UTRZYMANIE";
     }
-    return new JiraTicket(taskId, jiraSummary, description, assignee, label, dueDate);
+    return new JiraTicket(taskId, jiraSummary, description, assignee, label, dueDate, asChanges);
 }

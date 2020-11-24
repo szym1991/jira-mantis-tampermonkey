@@ -1,17 +1,22 @@
 class JiraTicket {
-    constructor(taskId, summary, description, assignee, label, dueDate) {
+    constructor(taskId, summary, description, assignee, label, dueDate, asChanges) {
         this.fields = {};
         this.fields.project = {};
         this.fields.project.key = "DMS";
-        this.fields.parent = {};
-        this.fields.parent.key = "DMS-13823";
         this.fields.summary = summary;
         this.fields.description = description;
         this.fields.issuetype = {};
-        this.fields.issuetype.id = "10501";
-//        this.fields.labels = [label];
+        if (asChanges) {
+            this.fields.issuetype.id = "10201"; //Bug
+            this.fields.customfield_12400 = "CHANGES"; //issue kind
+            this.fields.customfield_12500 = taskId; //nr_zgloszenia_changes
+        } else {
+            this.fields.parent = {};
+            this.fields.parent.key = "DMS-13823";
+            this.fields.issuetype.id = "10501"; //Bug - subtask
+            this.fields.customfield_10904 = taskId; //nr_zgloszenia
+        }
         this.fields.customfield_12300 = this.dueDateToJiraString(dueDate);
-        this.fields.customfield_10904 = taskId;
         this.fields.customfield_11700 = {"name": assignee};
     }
 
