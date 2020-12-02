@@ -7,13 +7,12 @@ class JiraTicket {
         this.fields.description = description;
         this.fields.issuetype = {};
         if (asChanges) {
-            this.fields.issuetype.id = "10201"; //Bug
-            this.fields.customfield_12400 = {"value": "CHANGES"}; //issue kind
+            this.fields.issuetype.id = "11400"; //Change Request
             this.fields.customfield_12500 = taskId; //nr_zgloszenia_changes
-            this.fields.customfield_10904 = taskId; //nr_zgloszenia
+            this.fields.customfield_10904 = "INCxxx"; //nr_zgloszenia
         } else {
             this.fields.parent = {};
-            this.fields.parent.key = "DMS-13823";
+            this.fields.parent.key = "";
             this.fields.issuetype.id = "10501"; //Bug - subtask
             this.fields.customfield_10904 = taskId; //nr_zgloszenia
         }
