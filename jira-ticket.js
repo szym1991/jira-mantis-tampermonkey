@@ -9,7 +9,9 @@ class JiraTicket {
         if (asChanges) { // issueType === "Propozycja CR"
             this.fields.issuetype.id = "11400"; //Change Request
 //            this.fields.customfield_12500 = taskId; //nr_zgloszenia_changes
-            this.fields.customfield_10904 = taskId; //nr_zgloszenia
+//            this.fields.customfield_10904 = taskId; //nr_zgloszenia
+            this.fields.customfield_10104 = Number.parseFloat(taskId); //MantisNumber
+            this.fields.customfield_10105 = "https://mantis.atechno.pl/tfms/view.php?id=" + taskId; //MantisURL
         } else {
             this.fields.parent = {};
             this.fields.parent.key = "";
@@ -31,8 +33,6 @@ class JiraTicket {
                 this.fields.customfield_12903 = {}; // TFMS Issue Kind
                 this.fields.customfield_12903.id = issueTypeId;
             }
-
-//            this.fields.customfield_10104 = //MantisNumber
         }
         //Priority
         var priorityId = null;
