@@ -54,7 +54,7 @@ function getData() {
     var priority = document.getElementsByClassName("bug-severity")[1].innerText;
 //    var category = document.getElementsByClassName("bug-category")[1].innerText.split(" ").pop();
 
-    return new JiraTicket(taskId, jiraSummary, description, assignee, issueType, priority);
+    return new JiraTicket(taskId, jiraSummary, description, assignee, asChanges, issueType, priority);
 }
 
 function findCustomFieldValue(tagName, innerText) {
