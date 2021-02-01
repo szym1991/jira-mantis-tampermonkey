@@ -1,15 +1,55 @@
 class JiraTicket {
-    constructor(taskId, summary, description, assignee) {
+    constructor(taskId, summary, description, assignee, asChanges, issueType, priority) {
         this.fields = {};
         this.fields.project = {};
         this.fields.project.key = "TFMS";
         this.fields.summary = summary;
         this.fields.description = description;
         this.fields.issuetype = {};
-        this.fields.parent = {};
-        this.fields.parent.key = "";
-        this.fields.issuetype.id = "10501"; //Bug - subtask
-        this.fields.customfield_10904 = taskId; //nr_zgloszenia
+        if (asChanges) { // issueType === "Propozycja CR"
+            this.fields.issuetype.id = "11400"; //Change Request
+//            this.fields.customfield_12500 = taskId; //nr_zgloszenia_changes
+            this.fields.customfield_10904 = taskId; //nr_zgloszenia
+        } else {
+            this.fields.parent = {};
+            this.fields.parent.key = "";
+            this.fields.issuetype.id = "10501"; //Bug - subtask
+            this.fields.customfield_10904 = taskId; //nr_zgloszenia
+            this.fields.customfield_10105 = "https://mantis.atechno.pl/tfms/view.php?id=" + taskId; //MantisURL
+            // TFMS Issue Kind
+            var issueTypeId = null;
+            if (issueType === "Błąd") {
+                issueTypeId = "11008"; //BŁĄD_GWARANCYJNY
+            } else if (issueType === "Propozycja utrzymanie") {
+                issueTypeId = "11009"; //DEV_UTRZYMANIE
+            } else if (issueType === "Konsultacja") {
+                issueTypeId = "11010"; //KONSULTACJA
+            } else if (issueType === "Wsparcie") {
+                issueTypeId = "11012"; //WSPARCIE
+            }
+            if (issueTypeId !== null) {
+                this.fields.customfield_12903 = {}; // TFMS Issue Kind
+                this.fields.customfield_12903.id = issueTypeId;
+            }
+
+//            this.fields.customfield_10104 = //MantisNumber
+        }
+        //Priority
+        var priorityId = null;
+        if (priority === "Krytyczny") {
+            priorityId = "1"; //Blocker
+        } else if (priority === "Poważny") {
+            priorityId = "2"; //Critical
+        } else if (priority === "Usterka") {
+            priorityId = "3"; //Major
+        } else if (priority === "Drobny") {
+            priorityId = "4"; //Minor
+        }
+        if (priorityId != null) {
+            this.fields.priority = {};
+            this.fields.priority.id = priorityId;
+        }
+
         this.fields.customfield_11700 = {"name": assignee};
     }
 

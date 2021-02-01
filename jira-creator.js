@@ -25,7 +25,7 @@ function initializeJiraCreator(parentJira, jiraIssueApi, jiraUsername, jiraPassw
             onload: function(response) {
                 if (response.status === 201) {
                     var jiraTicket = JSON.parse(response.responseText).key;
-                    document.getElementById("bugnote_text").value = jiraTicket;
+                    document.getElementById("bugnote_text").value = "Numer wewnętrzny zgłoszenia ATP: " + jiraTicket;
                     document.getElementById("bugnoteadd").submit();
                 } else {
                     console.log(response.responseText);
@@ -41,10 +41,31 @@ function getData() {
     var projectId = document.getElementsByClassName("bug-project")[1].innerText.split(" ");
     var summary = document.getElementsByClassName("bug-summary")[1].innerText.split(" ");
     summary.shift();
-    var jiraSummary = summary.join(" ");
+    var jiraSummary = "";
+    var asChanges = false;
+    var issueType = findCustomFieldValue("th", "Typ zgłoszenia");
+    if (issueType === "Propozycja CR") {
+        jiraSummary = "[CR] " + summary.join(" ");
+        asChanges = true;
+    } else {
+        jiraSummary = summary.join(" ");
+    }
     var description = document.getElementsByClassName("bug-description")[1].innerText;
-    var severity = document.getElementsByClassName("bug-severity")[1].innerText;
-    var category = document.getElementsByClassName("bug-category")[1].innerText.split(" ").pop();
+    var priority = document.getElementsByClassName("bug-severity")[1].innerText;
+//    var category = document.getElementsByClassName("bug-category")[1].innerText.split(" ").pop();
 
-    return new JiraTicket(taskId, jiraSummary, description, assignee);
+    return new JiraTicket(taskId, jiraSummary, description, assignee, issueType, priority);
+}
+
+function findCustomFieldValue(tagName, innerText) {
+    var aTags = document.getElementsByTagName(tagName);
+    var found;
+
+    for (var i = 0; i < aTags.length; i++) {
+        if (aTags[i].textContent == innerText) {
+            found = aTags[i];
+            break;
+        }
+    }
+    return found.nextElementSibling.innerText;
 }
