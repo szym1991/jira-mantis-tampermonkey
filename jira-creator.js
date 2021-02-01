@@ -43,7 +43,7 @@ function initializeJiraCreator(parentJira, jiraIssueApi, jiraUsername, jiraPassw
 
 function getData() {
     var taskId = document.getElementsByClassName("bug-id")[1].innerText;
-    var assignee = document.getElementsByClassName("bug-assigned-to")[1].innerText;
+    var assignee = document.getElementsByClassName("bug-assigned-to")[1].innerText.trim();
     var projectId = document.getElementsByClassName("bug-project")[1].innerText.split(" ");
     var summary = document.getElementsByClassName("bug-summary")[1].innerText.split(" ");
     summary.shift();
