@@ -67,5 +67,8 @@ function findCustomFieldValue(tagName, innerText) {
             break;
         }
     }
-    return found.nextElementSibling.innerText;
+    if (found !== undefined && found.nextElementSibling !== undefined) {
+        return found.nextElementSibling.innerText;
+    }
+    return null;
 }
