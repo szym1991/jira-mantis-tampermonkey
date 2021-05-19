@@ -29,7 +29,15 @@ function initializeClient(address, username, password) {
 }
 
 function getTaskIdFromJira() {
-    var mantisInTask = document.getElementById('customfield_10904-val');
+    var mantisInTask = getTaskIdFromHtml('customfield_10904-val'); //support
+    if (mantisInTask === null) {
+        mantisInTask = getTaskIdFromHtml('customfield_12500-val'); //CR
+    }
+    return mantisInTask;
+}
+
+function getTaskIdFromHtml(selector) {
+    var mantisInTask = document.getElementById(selector);
     if (mantisInTask === null) {
         return null;
     }
