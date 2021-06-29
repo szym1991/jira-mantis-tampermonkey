@@ -9,14 +9,14 @@ class JiraTicket {
         if (asChanges) { // issueType === "Propozycja CR"
             this.fields.issuetype.id = "11400"; //Change Request
 //            this.fields.customfield_12500 = taskId; //nr_zgloszenia_changes
-//            this.fields.customfield_10904 = taskId; //nr_zgloszenia
+            this.fields.customfield_10904 = taskId; //nr_zgloszenia
             this.fields.customfield_10104 = Number.parseFloat(taskId); //MantisNumber
             this.fields.customfield_10105 = "https://mantis.atechno.pl/tfms/view.php?id=" + Number.parseFloat(taskId); //MantisURL
         } else {
             this.fields.parent = {};
             this.fields.parent.key = "";
             this.fields.issuetype.id = "10501"; //Bug - subtask
-//            this.fields.customfield_10904 = taskId; //nr_zgloszenia
+            this.fields.customfield_10904 = taskId; //nr_zgloszenia
             this.fields.customfield_10104 = Number.parseFloat(taskId); //MantisNumber
             this.fields.customfield_10105 = "https://mantis.atechno.pl/tfms/view.php?id=" + Number.parseFloat(taskId); //MantisURL
             // TFMS Issue Kind
