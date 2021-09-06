@@ -44,7 +44,7 @@ function getData() {
     var jiraSummary = "";
     var asChanges = false;
     var issueType = findCustomFieldValue("th", "Typ zgłoszenia");
-    if (issueType === "Propozycja CR") {
+    if (issueType === "Nowa Funkcjonalność") {
         jiraSummary = "[CR] " + summary.join(" ");
         asChanges = true;
     } else {
