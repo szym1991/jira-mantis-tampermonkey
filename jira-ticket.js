@@ -7,7 +7,7 @@ class JiraTicket {
         this.fields.description = description;
         this.fields.issuetype = {};
         if (asChanges) { // issueType === "Propozycja CR"
-            this.fields.issuetype.id = "11400"; //Change Request
+            this.fields.issuetype.id = "11400"; //NOWA FUNKCJONALNOŚĆ
 //            this.fields.customfield_12500 = taskId; //nr_zgloszenia_changes
             this.fields.customfield_10904 = taskId; //nr_zgloszenia
             this.fields.customfield_10104 = Number.parseFloat(taskId); //MantisNumber
@@ -23,8 +23,8 @@ class JiraTicket {
             var issueTypeId = null;
             if (issueType === "Błąd") {
                 issueTypeId = "11008"; //BŁĄD_GWARANCYJNY
-            } else if (issueType === "Propozycja utrzymanie") {
-                issueTypeId = "11009"; //DEV_UTRZYMANIE
+            } else if (issueType === "Modyfikacja") {
+                issueTypeId = "11009"; //MODYFIKACJA
             } else if (issueType === "Konsultacja") {
                 issueTypeId = "11010"; //KONSULTACJA
             } else if (issueType === "Wsparcie") {
