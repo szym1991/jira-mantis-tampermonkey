@@ -44,6 +44,7 @@ function getData() {
     var jiraSummary = "";
     var asChanges = false;
     var issueType = findCustomFieldValue("th", "Typ zgłoszenia");
+    var settlementMethod = findCustomFieldValue("th", "Sposób rozliczenia");
     if (issueType === "Nowa Funkcjonalność") {
         jiraSummary = "[CR] " + summary.join(" ");
         asChanges = true;
@@ -54,7 +55,7 @@ function getData() {
     var priority = document.getElementsByClassName("bug-severity")[1].innerText;
 //    var category = document.getElementsByClassName("bug-category")[1].innerText.split(" ").pop();
 
-    return new JiraTicket(taskId, jiraSummary, description, assignee, asChanges, issueType, priority);
+    return new JiraTicket(taskId, jiraSummary, description, assignee, asChanges, issueType, priority, settlementMethod);
 }
 
 function findCustomFieldValue(tagName, innerText) {
