@@ -1,5 +1,5 @@
 class JiraTicket {
-    constructor(taskId, summary, description, assignee, asChanges, issueType, priority) {
+    constructor(taskId, summary, description, assignee, asChanges, issueType, priority, settlementMethod) {
         this.fields = {};
         this.fields.project = {};
         this.fields.project.key = "TFMS";
@@ -21,8 +21,11 @@ class JiraTicket {
             this.fields.customfield_10105 = "https://mantis.atechno.pl/tfms/view.php?id=" + Number.parseFloat(taskId); //MantisURL
             // TFMS Issue Kind
             var issueTypeId = null;
-            if (issueType === "Błąd") {
+            if (issueType === "Błąd" && settlementMethod === "Gwarancja") {
                 issueTypeId = "11008"; //BŁĄD_GWARANCYJNY
+            }
+            else if (issueType === "Błąd") {
+                issueTypeId = "11101"; //BŁĄD_UTRZYMANIE
             } else if (issueType === "Modyfikacja") {
                 issueTypeId = "11009"; //MODYFIKACJA
             } else if (issueType === "Konsultacja") {
