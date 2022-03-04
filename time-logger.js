@@ -115,7 +115,7 @@ function addTimeToLocalStorage(seconds) {
         currentTimeSpent = 0;
     }
     GM_setValue(key, currentTimeSpent + seconds);
-    GM_setValue(getLastLoggedTimeKey(), new Date());
+    GM_setValue(getLastLoggedTimeKey(), new Date().getTime());
 }
 
 function getLoggedTime() {
