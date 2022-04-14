@@ -1,42 +1,36 @@
 class JiraTicket {
-    constructor(taskId, summary, description, assignee, asChanges, issueType, priority, settlementMethod) {
+    constructor(taskId, summary, description, assignee, issueType, priority, settlementMethod) {
         this.fields = {};
         this.fields.project = {};
         this.fields.project.key = "TFMS";
         this.fields.summary = summary;
         this.fields.description = description;
         this.fields.issuetype = {};
-        if (asChanges) { // issueType === "Propozycja CR"
-            this.fields.issuetype.id = "11400"; //NOWA FUNKCJONALNOŚĆ
-//            this.fields.customfield_12500 = taskId; //nr_zgloszenia_changes
-            this.fields.customfield_10904 = taskId; //nr_zgloszenia
-            this.fields.customfield_10104 = Number.parseFloat(taskId); //MantisNumber
-            this.fields.customfield_10105 = "https://mantis.atechno.pl/tfms/view.php?id=" + Number.parseFloat(taskId); //MantisURL
-        } else {
-            this.fields.parent = {};
-            this.fields.parent.key = "";
-            this.fields.issuetype.id = "10501"; //Bug - subtask
-            this.fields.customfield_10904 = taskId; //nr_zgloszenia
-            this.fields.customfield_10104 = Number.parseFloat(taskId); //MantisNumber
-            this.fields.customfield_10105 = "https://mantis.atechno.pl/tfms/view.php?id=" + Number.parseFloat(taskId); //MantisURL
-            // TFMS Issue Kind
-            var issueTypeId = null;
-            if (issueType === "Błąd" && settlementMethod === "Gwarancja") {
-                issueTypeId = "11008"; //BŁĄD_GWARANCYJNY
-            }
-            else if (issueType === "Błąd") {
-                issueTypeId = "11101"; //BŁĄD_UTRZYMANIE
-            } else if (issueType === "Modyfikacja") {
-                issueTypeId = "11009"; //MODYFIKACJA
-            } else if (issueType === "Konsultacja") {
-                issueTypeId = "11010"; //KONSULTACJA
-            } else if (issueType === "Wsparcie") {
-                issueTypeId = "11012"; //WSPARCIE
-            }
-            if (issueTypeId !== null) {
-                this.fields.customfield_12903 = {}; // TFMS Issue Kind
-                this.fields.customfield_12903.id = issueTypeId;
-            }
+        this.fields.parent = {};
+        this.fields.parent.key = "";
+        this.fields.issuetype.id = "10501"; //Bug - subtask
+        this.fields.customfield_10904 = taskId; //nr_zgloszenia
+        this.fields.customfield_10104 = Number.parseFloat(taskId); //MantisNumber
+        this.fields.customfield_10105 = "https://mantis.atechno.pl/tfms/view.php?id=" + Number.parseFloat(taskId); //MantisURL
+        // TFMS Issue Kind
+        var issueTypeId = null;
+        if (issueType === "Błąd" && settlementMethod === "Gwarancja") {
+            issueTypeId = "11008"; //BŁĄD_GWARANCYJNY
+        }
+        else if (issueType === "Błąd") {
+            issueTypeId = "11101"; //BŁĄD_UTRZYMANIE
+        } else if (issueType === "Modyfikacja") {
+            issueTypeId = "11009"; //MODYFIKACJA
+        } else if (issueType === "Konsultacja") {
+            issueTypeId = "11010"; //KONSULTACJA
+        } else if (issueType === "Wsparcie") {
+            issueTypeId = "11012"; //WSPARCIE
+        } else if (issueType === "Nowa Funkcjonalność") {
+            issueTypeId = "11100";
+        }
+        if (issueTypeId !== null) {
+            this.fields.customfield_12903 = {}; // TFMS Issue Kind
+            this.fields.customfield_12903.id = issueTypeId;
         }
         //Priority
         var priorityId = null;
