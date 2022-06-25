@@ -29,9 +29,9 @@ function initializeClient(address, username, password) {
 }
 
 function getTaskIdFromJira() {
-    var mantisInTask = getTaskIdFromHtml('customfield_10904-val'); //support
+    var mantisInTask = getTaskIdFromHtml('customfield_12500-val'); //CR
     if (mantisInTask === null) {
-        mantisInTask = getTaskIdFromHtml('customfield_12500-val'); //CR
+        mantisInTask = getTaskIdFromHtml('customfield_10904-val'); //support
     }
     return mantisInTask;
 }
